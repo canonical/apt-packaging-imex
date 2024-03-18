@@ -1,0 +1,5 @@
+nvidia-imex-550 (550.54.14-0ubuntu1) noble; urgency=medium
+
+  * Initial release (LP: #2055384).
+
+ -- Kuba Pawlak <kuba.pawlak@canonical.com>  Tue, 12 Mar 2024 15:40:55 +0100
