@@ -1,0 +1,153 @@
+#!/usr/bin/make -f
+
+# The MIT License (MIT)
+# 
+# Copyright (c) 2020 NVIDIA Corporation
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+DH_VERBOSE := 1
+include /usr/share/dpkg/architecture.mk
+include /usr/share/dpkg/pkg-info.mk
+
+include debian/rules.defs
+
+VERSION         = $(shell echo $(DEB_VERSION_UPSTREAM) | sed -e's/.*\+really\.//')
+MAJOR_VER		= $(firstword $(subst ., ,$(VERSION)))
+
+NVIDIA_RELEASE   = $(VERSION)
+REVISION        ?= 1
+TIMESTAMP       := $(shell date -R)
+
+CACHE			?= ../.cache
+ORIGDIR			?= nvidia-imex-$(MAJOR_VER).orig
+TARBALL_BASE	?= nvidia-imex-$(MAJOR_VER)_$(NVIDIA_RELEASE).orig
+TARBALL_SUFFIX	?= .tar.gz
+TARBALL			?= $(TARBALL_BASE)$(TARBALL_SUFFIX)
+ORIGDIR.empty	?= $(ORIGDIR)
+TARBALL.empty	?= $(TARBALL)
+
+# $1 = arch
+get_download_url	 = $(or $(HTTPURL_PREFIX_$(strip $1)),$(HTTPURL_PREFIX))/$(HTTPURL_ARCHDIR_$(strip $1))/$(NVIDIA_FILENAME_$(strip $1))
+get_origdir		 = $(or $(ORIGDIR.$(strip $1)),$(ORIGDIR)-$(strip $1))
+get_tarball		 = $(or $(TARBALL.$(strip $1)),$(TARBALL_BASE)-$(strip $1)$(TARBALL_SUFFIX))
+
+DEBLIBINSTDIR   ?= /usr/lib/$(DEB_HOST_MULTIARCH)
+
+%:
+	dh $@ 
+
+override_dh_auto_clean:
+	rm -f NVIDIA-Linux
+	rm -Rf nvidiaimex
+	rm -fr $(foreach a,$(ARCH_LIST),NVIDIA-Linux-$a $(NVIDIA_DIRNAME_$a))
+
+override_dh_clean: fill_templates
+	dh_clean
+
+NVIDIA-Linux-%:
+	tar -xJvf $*/${NVIDIA_FILENAME_$*}
+	ln -s ${NVIDIA_DIRNAME_$*} $@
+
+# Unpack all architectures, we may need files from all of them.
+unpack-stamp: NVIDIA-Linux-$(DEB_HOST_ARCH)
+	dh_testdir
+	ln -s NVIDIA-Linux-$(DEB_HOST_ARCH) NVIDIA-Linux
+	ls -al
+	touch $@
+
+.PHONY: fill_templates
+fill_templates:
+	for template in debian/templates/*.in; do \
+		dest=`echo $$template | \
+		      sed -e "s|\.in\$$||" \
+		          -e "s|templates\/||" \
+		          -e "s|BRANCH|$(MAJOR_VER)|"`; \
+		sed -e "s|#VERSION#|$(VERSION)|g" \
+		    -e "s|#BRANCH#|$(MAJOR_VER)|g" \
+		    -e "s|#REVISION#|$(REVISION)|g" \
+		    -e "s|#TIMESTAMP#|$(TIMESTAMP)|g" \
+		    -e "s|#DEBLIBINSTDIR#|$(DEBLIBINSTDIR)|g" \
+		    -e "s|#ARCH_LIST#|$(ARCH_LIST)|g" \
+		    $$template > $$dest; \
+	done
+
+override_dh_auto_install: unpack-stamp
+	dh_install --exclude=none --fail-missing
+
+override_dh_makeshlibs:
+	DEB_BUILD_GNU_TYPE=$(DEB_HOST_GNU_TYPE) dh_makeshlibs
+
+#
+# Turn off a few of the debhelper scripts
+#
+override_dh_usrlocal:
+
+override_dh_strip:
+
+override_dh_strip_nondeterminism:
+
+#
+# Disable dh_shlibdeps to allow packaging to run on systems which aren't
+# the same architecture we're packaging for.
+#
+override_dh_shlibdeps:
+
+ifneq ($(DISABLE_FIXPERMS),)
+override_dh_fixperms:
+endif
+
+get-orig-source-prepare:
+	$(RM) -r get-orig-source
+	mkdir get-orig-source
+
+get-orig-source-prepare/%: get-orig-source-prepare
+	$(RM) $(call get_tarball,$*)
+	mkdir get-orig-source/$(call get_origdir,$*)
+
+get-orig-source-download/%: get-orig-source-prepare
+	ln -v $(CACHE)/$(NVIDIA_FILENAME_$*) get-orig-source/ 2>/dev/null || \
+		wget $(call get_download_url,$*) -P get-orig-source/ || cp $*/$(NVIDIA_FILENAME_$*) get-orig-source/
+	if [ -d $(CACHE) ] && [ ! -f $(CACHE)/$(NVIDIA_FILENAME_$*) ]; then \
+		ln -v get-orig-source/$(NVIDIA_FILENAME_$*) $(CACHE) ; fi
+
+get-orig-source-files/%: get-orig-source-prepare/% get-orig-source-download/%
+	@set -e -x ; \
+	    cd get-orig-source ; \
+		rm -f ../$*/*.gz; mkdir ../$* || true; cp $(NVIDIA_FILENAME_$*) ../$*/; \
+	    mv $(NVIDIA_FILENAME_$*) $(call get_origdir,$*)/ ; \
+	    touch $(call get_origdir,$*).stamp -r $(call get_origdir,$*)
+
+get-orig-source-pack/%: get-orig-source-files/%
+	@set -e -x ; \
+	    cd get-orig-source ; \
+	    tar cv \
+	        --clamp-mtime --mtime="@123456789" \
+	        --sort=name \
+		--owner=root --group=src \
+		$(call get_origdir,$*)/$(NVIDIA_FILENAME_$*) \
+		| gzip -n -9 > $(call get_tarball,$*) ; \
+	    touch $(call get_tarball,$*) -r $(call get_origdir,$*).stamp
+	mv get-orig-source/$(call get_tarball,$*) .
+
+get-orig-source-files/empty: get-orig-source-prepare/empty $(foreach a,$(ARCH_LIST),get-orig-source-pack/$a)
+	touch get-orig-source/$(call get_origdir,empty).stamp -r $$(ls -tr $(foreach a,$(ARCH_LIST),$(call get_tarball,$a)) | tail -n 1)
+
+.PHONY: get-orig-source
+get-orig-source: get-orig-source-pack/empty
+	rm -rf get-orig-source
