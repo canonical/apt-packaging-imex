@@ -33,10 +33,7 @@ Standards-Version: 1.0.0
 
 Package: nvidia-imex-575
 Architecture: amd64 arm64
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Provides: nvidia-imex
-Replaces: nvidia-imex
-Conflicts: nvidia-imex
+Depends: nvidia-imex-580
 Description: IMEX Manager for NVIDIA based systems.
- IMEX Manager for NVIDIA systems.
+ Transitional package
 
