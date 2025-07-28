@@ -19,7 +19,7 @@
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Source: nvidia-imex-570
+Source: nvidia-imex-580
 Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Uploaders:
  Kuba Pawlak <kuba.pawlak@canonical.com>,
@@ -31,7 +31,7 @@ Section: non-free/libs
 Priority: optional
 Standards-Version: 1.0.0
 
-Package: nvidia-imex-570
+Package: nvidia-imex-580
 Architecture: amd64 arm64
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Provides: nvidia-imex

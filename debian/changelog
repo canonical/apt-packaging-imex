@@ -1,30 +1,5 @@
-nvidia-imex-570 (570.172.08-0ubuntu1) questing; urgency=medium
+nvidia-imex-580 (580.65.03-0ubuntu1) questing; urgency=medium
 
-  * New upstream release 570.172.08 (LP: #2117176)
+  * New upstream release 580.65.03 (LP: #2118389)
 
- -- Kuba Pawlak <kuba.pawlak@canonical.com>  Thu, 17 Jul 2025 19:54:45 +0200
-
-nvidia-imex-570 (570.158.01-0ubuntu1) questing; urgency=medium
-
-  * New upstream release 570.158.01 ERD5 (LP: #2114898)
-
- -- Kuba Pawlak <kuba.pawlak@canonical.com>  Wed, 18 Jun 2025 14:02:13 +0200
-
-nvidia-imex-570 (570.148.08-0ubuntu1) questing; urgency=medium
-
-  * New upstream release 570.148.08 ERD4 (LP: #2109958)
-
- -- Kuba Pawlak <kuba.pawlak@canonical.com>  Wed, 28 May 2025 10:25:02 +0200
-
-nvidia-imex-570 (570.148.03-0ubuntu1) questing; urgency=medium
-
-  * New upstream release 570.148.03 ERD4 (LP: #2109958)
-
- -- Kuba Pawlak <kuba.pawlak@canonical.com>  Mon, 05 May 2025 12:00:27 +0200
-
-nvidia-imex-570 (570.86.15-0ubuntu1) plucky; urgency=medium
-
-  * Introduce 570 series
-  * New upstream release 570.86.15 ERD1 (LP: #2095341)
-
- -- Kuba Pawlak <kuba.pawlak@canonical.com>  Mon, 27 Jan 2025 11:55:48 +0100
+ -- Kuba Pawlak <kuba.pawlak@canonical.com>  Mon, 28 Jul 2025 16:44:48 +0200
