@@ -34,7 +34,7 @@ Standards-Version: 1.0.0
 Package: nvidia-imex-#BRANCH#
 Architecture: #ARCH_LIST#
 Depends:
- nvidia-kernel-common-#BRANCH#-server (= ${binary:Version}),
+ nvidia-kernel-common-#BRANCH#-server-#VERSION# [!i386],
  ${misc:Depends}, ${shlibs:Depends}
 Provides: nvidia-imex
 Replaces: nvidia-imex
