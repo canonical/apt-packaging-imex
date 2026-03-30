@@ -34,7 +34,7 @@ Standards-Version: 1.0.0
 Package: nvidia-imex-580
 Architecture: amd64 arm64
 Depends:
- nvidia-kernel-common-580-server-580.126.09 [!i386],
+ nvidia-kernel-common-580-server-580.126.20 [!i386],
  ${misc:Depends}, ${shlibs:Depends}
 Provides: nvidia-imex
 Replaces: nvidia-imex
