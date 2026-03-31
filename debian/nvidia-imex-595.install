@@ -1,6 +1,6 @@
 NVIDIA-Linux/usr/bin/*                       /usr/bin
 
-NVIDIA-Linux/lib/systemd/system/*            /lib/systemd/system/
+NVIDIA-Linux/usr/lib/systemd/system/*        /usr/lib/systemd/system/
 
 NVIDIA-Linux/etc/nvidia-imex/config.cfg      /etc/nvidia-imex/
 
