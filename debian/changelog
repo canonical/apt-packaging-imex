@@ -1,5 +1,5 @@
-nvidia-imex-595 (595.58.03-0ubuntu0.25.10.1) questing; urgency=medium
+nvidia-imex-595 (595.58.03-0ubuntu0.25.10.2) questing; urgency=medium
 
   * New upstream release 595.58.03 ERD (LP: #2146730)
 
- -- Abdur Rahman <abdur.rahman@canonical.com>  Mon, 30 Mar 2026 23:41:08 -0400
+ -- Abdur Rahman <abdur.rahman@canonical.com>  Tue, 31 Mar 2026 11:15:40 -0400
