@@ -27,18 +27,13 @@ Vcs-Git: git://github.com/canonical/apt-packaging-imex.git
 Vcs-Browser: https://github.com/canonical/apt-packaging-imex/tree/550
 Build-Depends: debhelper (>= 10)
 XS-Autobuild: yes
-Section: non-free/libs
+Section: non-free/oldlibs
 Priority: optional
 Standards-Version: 1.0.0
 
 Package: nvidia-imex-#BRANCH#
 Architecture: #ARCH_LIST#
-Depends:
- nvidia-kernel-common-#BRANCH#-server-#VERSION# [!i386],
- ${misc:Depends}, ${shlibs:Depends}
-Provides: nvidia-imex
-Replaces: nvidia-imex
-Conflicts: nvidia-imex
+Depends: nvidia-imex-580
 Description: IMEX Manager for NVIDIA based systems.
- IMEX Manager for NVIDIA systems.
+ Transitional package for upgrades. This package can be safely removed.
 
