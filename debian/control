@@ -19,7 +19,7 @@
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Source: nvidia-imex-595
+Source: nvidia-imex-610
 Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Uploaders:
  Kuba Pawlak <kuba.pawlak@canonical.com>,
@@ -31,10 +31,10 @@ Section: non-free/libs
 Priority: optional
 Standards-Version: 1.0.0
 
-Package: nvidia-imex-595
+Package: nvidia-imex-610
 Architecture: amd64 arm64
 Depends:
- nvidia-kernel-common-595-server-595.71.05 [!i386],
+ nvidia-kernel-common-610-server-610.57.04 [!i386],
  ${misc:Depends}, ${shlibs:Depends}
 Provides: nvidia-imex
 Replaces: nvidia-imex
