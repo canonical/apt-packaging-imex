@@ -1,8 +1,8 @@
-nvidia-imex-610 (610.57.04-0ubuntu0.22.04.3) UNRELEASED; urgency=medium
+nvidia-imex-610 (610.57.04-0ubuntu0.22.04.3) jammy; urgency=medium
 
   * Respin upstrem version 610.57.04 (LP: #2163131)
 
- -- Abdur Rahman <abdur.rahman@canonical.com>  Tue, 11 Aug 2026 10:08:32 -0400
+ -- Abdur Rahman <abdur.rahman@canonical.com>  Tue, 11 Aug 2026 10:18:19 -0400
 
 nvidia-imex-610 (610.57.04-0ubuntu0.22.04.2) jammy; urgency=medium
 
