@@ -42,3 +42,11 @@ Conflicts: nvidia-imex
 Description: IMEX Manager for NVIDIA based systems.
  IMEX Manager for NVIDIA systems.
 
+Package: nvidia-imex-610
+Architecture: amd64 arm64
+Section: oldlibs
+Multi-Arch: no
+Depends: nvidia-imex-615
+Description: IMEX Manager for NVIDIA based systems. (transitional package)
+ Transitional package for upgrades. This package can be safely removed.
+
