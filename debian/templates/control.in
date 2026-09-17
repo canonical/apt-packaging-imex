@@ -33,8 +33,9 @@ Standards-Version: 1.0.0
 
 Package: nvidia-imex-#BRANCH#
 Architecture: #ARCH_LIST#
-Section: non-free/oldlibs
-Depends: nvidia-imex-595
-Description: IMEX Manager for NVIDIA based systems.
+Section: oldlibs
+Multi-Arch: no
+Depends: nvidia-imex-615
+Description: IMEX Manager for NVIDIA based systems. (transitional package)
  Transitional package for upgrades. This package can be safely removed.
 
