@@ -1,8 +1,8 @@
-nvidia-imex-610 (610.57.04-0ubuntu0.22.04.4) UNRELEASED; urgency=medium
+nvidia-imex-610 (610.57.04-0ubuntu0.22.04.4) jammy; urgency=medium
 
   * Transition the 610 driver packages to 615 (LP: #2167526)
 
- -- Jacob Martin <jacob.martin@canonical.com>  Thu, 17 Sep 2026 10:54:48 -0500
+ -- Jacob Martin <jacob.martin@canonical.com>  Thu, 17 Sep 2026 10:57:41 -0500
 
 nvidia-imex-610 (610.57.04-0ubuntu0.22.04.3) jammy; urgency=medium
 
