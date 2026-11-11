@@ -1,0 +1,9 @@
+NVIDIA-Linux/bin/nvidia-imex                 /usr/bin
+NVIDIA-Linux/bin/nvidia-imex-ctl             /usr/bin
+
+NVIDIA-Linux/lib/systemd/system/*            /usr/lib/systemd/system/
+
+NVIDIA-Linux/config/nvidia-imex/config.cfg   /etc/nvidia-imex/
+
+NVIDIA-Linux/LICENSE                         /usr/share/doc/nvidia-imex/
+NVIDIA-Linux/third-party-notices.txt         /usr/share/doc/nvidia-imex/
